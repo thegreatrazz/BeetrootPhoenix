@@ -1,0 +1,128 @@
+﻿<Page
+    x:Class="Phoenix.UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Phoenix.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+
+    <Grid>
+        <!-- Titlebar -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="AppTitleBar" Background="Transparent" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="LeftPaddingColumn" Width="0" />
+                    <ColumnDefinition/>
+                    <ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="Assets/Square44x44Logo.png"
+                   Grid.Column="1" HorizontalAlignment="Left"
+                   Width="20" Height="20" Margin="12,0"/>
+                <TextBlock Text="Beetroot/Phoenix Player"
+                           Grid.Column="1"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Margin="44, 8, 0, 0"/>
+            </Grid>
+            <StackPanel x:Name="AppTitleContainer"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Grid.Column="1">
+                <Button x:Name="LibrarySettingsButton"
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="16"
+                        Background="Transparent"
+                        FocusVisualPrimaryBrush="Transparent"
+                        FocusVisualSecondaryBrush="#00000000"
+                        ToolTipService.ToolTip="Library"
+                        ToolTipService.Placement="Mouse">&#xE8B7;</Button>
+                <Button x:Name="RequestSettingsButton"
+                        HorizontalAlignment="Right"
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="16"
+                        Background="Transparent"
+                        FocusVisualPrimaryBrush="Transparent"
+                        FocusVisualSecondaryBrush="#00000000"
+                        ToolTipService.ToolTip="Requests"
+                        ToolTipService.Placement="Mouse">&#xE774;</Button>
+                <Button x:Name="SettingsButton"
+                        HorizontalAlignment="Right"
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="16"
+                        Background="Transparent"
+                        FocusVisualPrimaryBrush="Transparent"
+                        FocusVisualSecondaryBrush="#00000000"
+                        ToolTipService.ToolTip="Settings"
+                        ToolTipService.Placement="Mouse">&#xE713;</Button>
+            </StackPanel>
+            <MediaElement HorizontalAlignment="Left" Height="100" Margin="339,473,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
+        </Grid>
+
+        <StackPanel x:Name="MainContent"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+            <Grid>
+                <!-- this is where the 3 main panes will go... the should be separate in a tiled fashion on big screens and
+                     as a pivot on smaller ones. we'll see -->
+            </Grid>
+
+            <!-- DJ Panel -->
+            <Grid
+                x:Name="DJPanel"
+                VerticalAlignment="Bottom"
+                Margin="16" Height="64"
+                Background="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
+                CornerRadius="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Width="48" Height="48"
+                  HorizontalAlignment="Left"
+                  Margin="8"
+                  Background="White"
+                  Grid.Column="0">
+                    <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="32"
+                           Foreground="Black"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center">&#xE8D6;</TextBlock>
+                    <Image/>
+                </Grid>
+                <StackPanel Margin="72,8,8,8"
+                        Grid.Column="0">
+                    <!--<TextBlock Style="{StaticResource CaptionTextBlockStyle}">Song Author</TextBlock>-->
+                    <TextBlock x:Name="MetaSongTitle"
+                           Style="{StaticResource TitleTextBlockStyle}"></TextBlock>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button x:Name="DJPlayButton"
+                        Margin="8"
+                        FontFamily="Segoe MDL2 Assets" FontSize="16"
+                        Width="48" Height="48"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        CornerRadius="24" Click="DJPlayButton_Click"
+                        ToolTipService.ToolTip="Play">&#xE768;</Button>
+                    <Button x:Name="DJSkipButton"
+                        Margin="0,8,8,8"
+                        Width="32" Height="32"
+                         VerticalAlignment="Center"
+                        FontFamily="Segoe MDL2 Assets" FontSize="16"
+                        CornerRadius="16"
+                        ToolTipService.ToolTip="Skip Song" Click="DJSkipButton_Click">&#xE893;</Button>
+                </StackPanel>
+
+            </Grid>
+
+        </StackPanel>
+
+
+
+    </Grid>
+</Page>
