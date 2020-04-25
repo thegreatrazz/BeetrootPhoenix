@@ -24,7 +24,7 @@
                 <Image Source="Assets/Square44x44Logo.png"
                    Grid.Column="1" HorizontalAlignment="Left"
                    Width="20" Height="20" Margin="12,0"/>
-                <TextBlock Text="Beetroot/Phoenix Player"
+                <TextBlock Text="Beetroot Player"
                            Grid.Column="1"
                            Style="{StaticResource CaptionTextBlockStyle}"
                            Margin="44, 8, 0, 0"/>
@@ -40,7 +40,7 @@
                         FocusVisualPrimaryBrush="Transparent"
                         FocusVisualSecondaryBrush="#00000000"
                         ToolTipService.ToolTip="Library"
-                        ToolTipService.Placement="Mouse">&#xE8B7;</Button>
+                        ToolTipService.Placement="Mouse" Click="LibrarySettingsButton_Click">&#xE8B7;</Button>
                 <Button x:Name="RequestSettingsButton"
                         HorizontalAlignment="Right"
                         FontFamily="Segoe MDL2 Assets"
@@ -49,7 +49,7 @@
                         FocusVisualPrimaryBrush="Transparent"
                         FocusVisualSecondaryBrush="#00000000"
                         ToolTipService.ToolTip="Requests"
-                        ToolTipService.Placement="Mouse">&#xE774;</Button>
+                        ToolTipService.Placement="Mouse" Click="RequestSettingsButton_Click">&#xE774;</Button>
                 <Button x:Name="SettingsButton"
                         HorizontalAlignment="Right"
                         FontFamily="Segoe MDL2 Assets"
@@ -58,7 +58,7 @@
                         FocusVisualPrimaryBrush="Transparent"
                         FocusVisualSecondaryBrush="#00000000"
                         ToolTipService.ToolTip="Settings"
-                        ToolTipService.Placement="Mouse">&#xE713;</Button>
+                        ToolTipService.Placement="Mouse" Click="SettingsButton_Click">&#xE713;</Button>
             </StackPanel>
             <MediaElement HorizontalAlignment="Left" Height="100" Margin="339,473,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
         </Grid>
@@ -77,7 +77,7 @@
                 x:Name="DJPanel"
                 VerticalAlignment="Bottom"
                 Margin="16" Height="64"
-                Background="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                 CornerRadius="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -109,6 +109,7 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         CornerRadius="24" Click="DJPlayButton_Click"
+                        Foreground="White"
                         ToolTipService.ToolTip="Play">&#xE768;</Button>
                     <Button x:Name="DJSkipButton"
                         Margin="0,8,8,8"
@@ -116,6 +117,7 @@
                          VerticalAlignment="Center"
                         FontFamily="Segoe MDL2 Assets" FontSize="16"
                                                 Padding="0"
+                        Foreground="White"
                         CornerRadius="16"
                         ToolTipService.ToolTip="Skip Song" Click="DJSkipButton_Click">&#xE893;</Button>
                 </StackPanel>
@@ -169,6 +171,10 @@
                       VerticalAlignment="Stretch"
                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                       CornerRadius="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition/>
@@ -177,7 +183,15 @@
                                Margin="8">
                         Requests
                     </TextBlock>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               Margin="8"
+                               Style="{ThemeResource CaptionTextBlockStyle}">
+                        <Hyperlink Click="ShareWithFriends_Clicked">Share with guests</Hyperlink>
+                    </TextBlock>
                     <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
                                Margin="8">Requests are not available in this version of Beetroot.</TextBlock>
                 </Grid>
 

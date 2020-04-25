@@ -9,8 +9,8 @@
 
   <Identity
     Name="1d4aa0f3-0623-4650-bf4c-16afe209ceb4"
-    Publisher="CN=razz"
-    Version="1.0.1.0" />
+    Publisher="CN=DC9F6063-3363-4707-834D-9AB5B098E9EA"
+    Version="0.0.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="1d4aa0f3-0623-4650-bf4c-16afe209ceb4" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -56,5 +56,6 @@
     <uap:Capability Name="removableStorage"/>
     <Capability Name="internetClientServer"/>
     <uap3:Capability Name="backgroundMediaPlayback"/>
+    <uap3:Capability Name="broadFileSystemAccess"/>
   </Capabilities>
 </Package>

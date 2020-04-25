@@ -21,10 +21,13 @@ using Windows.Media.Core;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Collections;
+using System.Drawing;
 using Windows.UI.Popups;
 using System.Runtime.CompilerServices;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+using Windows.UI;
+using Windows.UI.WindowManagement;
+using Windows.UI.Xaml.Hosting;
+using Color = Windows.UI.Color;
 
 namespace Phoenix.UWP
 {
@@ -141,9 +144,19 @@ namespace Phoenix.UWP
             await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Low, () =>
             {
                 var song = SongQueue_Dequeue();
-                if (song == null) return;
                 CurrentSong = song;
             });
+
+            if (CurrentSong == null)
+            {
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Low, () =>
+                {
+                    var song = SongQueue_Dequeue();
+                    CurrentSong = song;
+                });
+
+                return;
+            }
 
             mediaPlayer.Source = MediaSource.CreateFromStorageFile(CurrentSong.File);
             mediaPlayer.Play();
@@ -303,6 +316,42 @@ namespace Phoenix.UWP
         {
             int index = QueueListView.Items.IndexOf(sender);
             SongQueue_MoveUp(index);
+        }
+
+        private void LibrarySettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            new LibrarySettings().ShowAsync();
+        }
+
+        private void RequestSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            new RequestSettings().ShowAsync();
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            new GeneralSettings().ShowAsync();
+        }
+
+        private async void ShareWithFriends_Clicked(Windows.UI.Xaml.Documents.Hyperlink sender, Windows.UI.Xaml.Documents.HyperlinkClickEventArgs args)
+        {
+            var appWindow = await AppWindow.TryCreateAsync();
+            var titlebar = appWindow.TitleBar;
+            titlebar.ExtendsContentIntoTitleBar = true;
+            titlebar.ButtonBackgroundColor = Colors.Transparent;
+
+            var appWindowFrame = new Frame();
+            appWindowFrame.Navigate(typeof(RequestLink));
+
+            ElementCompositionPreview.SetAppWindowContent(appWindow, appWindowFrame);
+
+            await appWindow.TryShowAsync();
+
+            appWindow.Closed += delegate
+            {
+                appWindowFrame.Content = null;
+                appWindow = null;
+            };
         }
     }
 }

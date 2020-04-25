@@ -32,6 +32,13 @@ namespace Phoenix.UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            // assert default configuration
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (!(localSettings.Values["UseDefaultLibrary"] is bool)) localSettings.Values["UseDefaultLibrary"] = true;
+            if (!(localSettings.Values["LibraryPath"] is string)) localSettings.Values["LibraryPath"] = "";
+            if (!(localSettings.Values["AcceptRequests"] is bool)) localSettings.Values["AcceptRequests"] = false;
+            if (!(localSettings.Values["ModerateRequests"] is bool)) localSettings.Values["ModerateRequests"] = true;
         }
 
         /// <summary>
