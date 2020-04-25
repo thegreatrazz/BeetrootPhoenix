@@ -95,10 +95,10 @@
                     <Image/>
                 </Grid>
                 <StackPanel Margin="72,8,8,8"
-                        Grid.Column="0">
-                    <!--<TextBlock Style="{StaticResource CaptionTextBlockStyle}">Song Author</TextBlock>-->
-                    <TextBlock x:Name="MetaSongTitle"
-                           Style="{StaticResource TitleTextBlockStyle}"></TextBlock>
+                            Grid.Column="0"
+                            VerticalAlignment="Center">
+                    <TextBlock x:Name="MetaSongAuthor" Style="{StaticResource CaptionTextBlockStyle}"/>
+                    <TextBlock x:Name="MetaSongTitle"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -115,6 +115,7 @@
                         Width="32" Height="32"
                          VerticalAlignment="Center"
                         FontFamily="Segoe MDL2 Assets" FontSize="16"
+                                                Padding="0"
                         CornerRadius="16"
                         ToolTipService.ToolTip="Skip Song" Click="DJSkipButton_Click">&#xE893;</Button>
                 </StackPanel>
@@ -149,7 +150,7 @@
                     <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
                                Margin="8">Library</TextBlock>
                     <ScrollViewer Grid.Row="1">
-                        <ListView x:Name="LibraryList" ItemsSource="{x:Bind SongLibrary}">
+                        <ListView x:Name="LibraryList" ItemsSource="{x:Bind SongLibrary}" SelectionChanged="LibraryList_SelectionChanged">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
@@ -193,8 +194,33 @@
                                Margin="8">
                         Queue
                     </TextBlock>
-                    <TextBlock Grid.Row="1"
-                               Margin="8">Queues are not available in this version of Beetroot.</TextBlock>
+                    <!--<TextBlock VerticalAlignment="Center" 
+                               HorizontalAlignment="Center"
+                               Grid.Row="1">Your queue is empty. Approve requests or add from library.</TextBlock>-->
+                    <ListView Grid.Row="1"
+                              CanReorderItems="True"
+                              x:Name="QueueListView"
+                              AllowDrop="True"
+                              ItemsSource="{x:Bind SongQueue}"
+                              SelectionMode="None">
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Visibility="{Binding Artist, TargetNullValue=Collapsed}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{Binding Artist}"></TextBlock>
+                                        <TextBlock Text="{Binding Title}"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="8" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
                 </Grid>
             </Grid>
 
