@@ -63,13 +63,14 @@
             <MediaElement HorizontalAlignment="Left" Height="100" Margin="339,473,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
         </Grid>
 
-        <StackPanel x:Name="MainContent"
+        <Grid x:Name="MainContent"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
-            <Grid>
-                <!-- this is where the 3 main panes will go... the should be separate in a tiled fashion on big screens and
-                     as a pivot on smaller ones. we'll see -->
-            </Grid>
+                    VerticalAlignment="Stretch"
+                    Margin="0, 0, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
             <!-- DJ Panel -->
             <Grid
@@ -117,10 +118,87 @@
                         CornerRadius="16"
                         ToolTipService.ToolTip="Skip Song" Click="DJSkipButton_Click">&#xE893;</Button>
                 </StackPanel>
-
             </Grid>
 
-        </StackPanel>
+            <!-- Content -->
+            <Grid
+                  Margin="14,0,18,16"
+                  Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="320"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0"
+                      Grid.Row="0"
+                      Grid.RowSpan="3"
+                      CornerRadius="4"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                               Margin="8">Library</TextBlock>
+                    <ScrollViewer Grid.Row="1">
+                        <ListView x:Name="LibraryList" ItemsSource="{x:Bind SongLibrary}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Visibility="{Binding Artist, TargetNullValue=Collapsed}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{Binding Artist}"></TextBlock>
+                                        <TextBlock Text="{Binding Title}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+                </Grid>
+
+                <Grid Grid.Column="2"
+                      Grid.Row="0"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                      CornerRadius="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                               Margin="8">
+                        Requests
+                    </TextBlock>
+                    <TextBlock Grid.Row="1"
+                               Margin="8">Requests are not available in this version of Beetroot.</TextBlock>
+                </Grid>
+
+                <Grid Grid.Column="2"
+                      Grid.Row="2"
+                      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                      CornerRadius="4"
+                      Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                               Margin="8">
+                        Queue
+                    </TextBlock>
+                    <TextBlock Grid.Row="1"
+                               Margin="8">Queues are not available in this version of Beetroot.</TextBlock>
+                </Grid>
+            </Grid>
+
+        </Grid>
 
 
 

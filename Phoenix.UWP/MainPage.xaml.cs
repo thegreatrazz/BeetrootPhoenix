@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
 using System.Diagnostics;
 using Windows.Media.Core;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -28,9 +29,14 @@ namespace Phoenix.UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private StorageFile CurrentSong { get; set; }
+
         int libraryIndex = 0;
         List<StorageFile> musicLibrary = new List<StorageFile>();
         MediaPlayer mediaPlayer = new MediaPlayer();
+
+        ObservableCollection<Song> SongLibrary { get; } = new ObservableCollection<Song>();
+        Stack<Song> SongQueue { get; } = new Stack<Song>();
 
         public MainPage()
         {
@@ -51,7 +57,7 @@ namespace Phoenix.UWP
             Window.Current.SetTitleBar(AppTitleBar);
 
             // Scan Library
-            ScanLibrary();
+            this.ScanLibrary();
 
             // set up media player events
             mediaPlayer.MediaOpened += this.MediaPlayer_MediaOpened;
@@ -151,8 +157,11 @@ namespace Phoenix.UWP
                 }
             }
 
-            foreach (var file in files) Debug.WriteLine(file.Path);
-            musicLibrary = files.OrderBy(a => Guid.NewGuid()).ToList();
+            foreach (var file in files)
+            {
+                SongLibrary.Add(await Song.FromFile(file));
+            }
+            musicLibrary = files;//.OrderBy(a => Guid.NewGuid()).ToList();
             mediaPlayer.Source = MediaSource.CreateFromStorageFile(musicLibrary[0]);
         }
 
